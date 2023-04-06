@@ -13,6 +13,10 @@ body {
   line-height: 1.6;
 }
 
+.white {
+  background-color: #f4f4f4;
+}
+
 ul {
   list-style: none;
 }
@@ -41,6 +45,7 @@ header {
   position: relative;
 }
 
+/* any card that has the class of reverse */
 .card.reverse {
   background-color: rgba(0, 0, 0, 0.4);
   color: #fff;

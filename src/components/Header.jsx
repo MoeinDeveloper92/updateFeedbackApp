@@ -7,8 +7,10 @@ function Header({ text, bgColor, txtColor }) {
         color: txtColor
     }
 
+
     return (
         <header style={headerStyles}>
+
             <div className='container'  >
                 <h2>{text}</h2>
             </div>

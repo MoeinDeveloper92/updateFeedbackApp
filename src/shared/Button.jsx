@@ -12,7 +12,7 @@ function Button({ children, version, type, isDisabled }) {
 Button.defaultProps = {
     version: 'primary',
     type: 'button',
-    isDisabled: false
+    isDisabled: true
 }
 
 

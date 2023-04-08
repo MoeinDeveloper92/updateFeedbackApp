@@ -45,6 +45,11 @@ header {
   position: relative;
 }
 
+.about h3 {
+  text-align: center;
+  margin-top: 10px;
+}
+
 /* any card that has the class of reverse */
 .card.reverse {
   background-color: rgba(0, 0, 0, 0.4);

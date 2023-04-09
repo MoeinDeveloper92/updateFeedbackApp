@@ -1,18 +1,27 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import FeedbackContext from '../context/FeedbackContext';
 import Card from '../shared/Card'
 import Button from '../shared/Button';
 import { useState } from 'react'
 import RatingSelect from './RatingSelect';
 
-
+// have it in your mind, when we click on the edit button, the form has to know what we have in the editFeedback object, that's why we use useEffect hook
 function FeedbackForm() {
     const [text, setText] = useState("");
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [message, setMessage] = useState("");
     const [rating, setRating] = useState(10)
 
-    const { addFeedback } = useContext(FeedbackContext)
+    const { addFeedback, feedbackEdit, updateFeedback } = useContext(FeedbackContext)
+
+
+    useEffect(() => {
+        if (feedbackEdit.edit) {
+            setBtnDisabled(false)
+            setText(feedbackEdit.item.text)
+            setRating(feedbackEdit.item.rating)
+        }
+    }, [feedbackEdit])
 
     const handleChange = (e) => {
         // if there is nothing in the text,there is no point to show meesage, that's why se set it to null;
@@ -37,7 +46,12 @@ function FeedbackForm() {
                 text,
                 rating
             }
-            addFeedback(newFeedback)
+            if (feedbackEdit.edit === true) {
+                updateFeedback(feedbackEdit.item.id, newFeedback)
+            } else {
+                addFeedback(newFeedback)
+            }
+
         }
         setText("")
     }

@@ -21,6 +21,10 @@ export const FeedbackProvider = ({ children }) => {
             text: "This is the third text which is again comming from another contet"
         }
     ])
+    const [feedbackEdit, setFeedbackEdit] = useState({
+        item: {},
+        edit: false
+    })
 
     // Delete function
     const deleteFeedback = (id) => {
@@ -36,13 +40,31 @@ export const FeedbackProvider = ({ children }) => {
         setFeedback([newFeedback, ...feedback])
     }
 
+    //  Set item to be updated
+    // editFeedback is afunction just runs when we ckikc on the edit button
+    const editFeedback = (item) => {
+        setFeedbackEdit({
+            item,
+            edit: true
+        })
+    }
+
+
+    // Update Feedback Item
+    const updateFeedback = (id, updItem) => {
+        setFeedback(feedback.map((item) => item.id === id ? { ...item, ...updItem } : item))
+    }
+
 
     return (
         <FeedbackContext.Provider
             value={{
                 feedback,
                 deleteFeedback,
-                addFeedback
+                addFeedback,
+                editFeedback,
+                feedbackEdit,
+                updateFeedback
             }}
         >
             {children}

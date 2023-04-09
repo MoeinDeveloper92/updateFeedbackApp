@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import FeedbackContext from '../context/FeedbackContext';
 import Card from '../shared/Card'
 import Button from '../shared/Button';
 import { useState } from 'react'
-import { isDisabled } from '@testing-library/user-event/dist/utils';
 import RatingSelect from './RatingSelect';
 
 
-function FeedbackForm({ handleAdd }) {
+function FeedbackForm() {
     const [text, setText] = useState("");
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [message, setMessage] = useState("");
     const [rating, setRating] = useState(10)
+
+    const { addFeedback } = useContext(FeedbackContext)
 
     const handleChange = (e) => {
         // if there is nothing in the text,there is no point to show meesage, that's why se set it to null;
@@ -35,7 +37,7 @@ function FeedbackForm({ handleAdd }) {
                 text,
                 rating
             }
-            handleAdd(newFeedback)
+            addFeedback(newFeedback)
         }
         setText("")
     }

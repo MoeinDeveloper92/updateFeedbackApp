@@ -41,7 +41,7 @@ function App() {
               feedback={feedback}
               handleDelete={deleteFeedback}
             />
-            <Link to={"/about"}>About Application</Link>
+            <Link to={"/about"} color='white'>About Application</Link>
           </>} />
           <Route path='/about' element={<About />} />
         </Routes>

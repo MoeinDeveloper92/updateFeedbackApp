@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 function Header({ text, bgColor, txtColor }) {
 
@@ -9,12 +10,26 @@ function Header({ text, bgColor, txtColor }) {
 
 
     return (
-        <header style={headerStyles}>
+        <motion.div
+            initial={{
+                x: '-100%'
+            }}
+            animate={{
+                x: 0
+            }}
+            transition={{
+                duration: 0.5,
+                type:'spring'
+            }}
+        >
+            <header style={headerStyles}>
 
-            <div className='container'  >
-                <h2>{text}</h2>
-            </div>
-        </header>
+                <div className='container'  >
+                    <h2>{text}</h2>
+                </div>
+            </header>
+        </motion.div>
+
     )
 }
 

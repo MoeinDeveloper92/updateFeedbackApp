@@ -28,3 +28,7 @@ function App() {
 }
 
 export default App
+
+// You can upload whatever is in build folder to nay host that you want
+// I have used netlify as host and in order to serve build folder you shuld install serve package
+// 1=> npm i -g serve 2=> serve -s build

@@ -1,30 +1,30 @@
 import { v4 as uuidv4 } from 'uuid'
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({ children }) => {
-    const [feedback, setFeedback] = useState([
-        {
-            id: 1,
-            rating: 10,
-            text: "This text is comming from Context"
-        },
-        {
-            id: 2,
-            rating: 9,
-            text: 'This text is comming from Another Context'
-        },
-        {
-            id: 3,
-            rating: 7,
-            text: "This is the third text which is again comming from another contet"
-        }
-    ])
+    const [isLoading, setIsLoading] = useState(true)
+    const [feedback, setFeedback] = useState([])
     const [feedbackEdit, setFeedbackEdit] = useState({
         item: {},
         edit: false
     })
+
+
+    useEffect(() => {
+        fetchFeedback()
+    }, [])
+
+    const fetchFeedback = async () => {
+        const res = await fetch("http://localhost:3000/feedback?_sort=id&_order=desc")
+        const data = await res.json()
+        // we fetch data from our backend
+        setFeedback(data)
+        // once we have received data we set isLoading to false
+        // which means we have load the data
+        setIsLoading(false)
+    }
 
     // Delete function
     const deleteFeedback = (id) => {
@@ -64,7 +64,8 @@ export const FeedbackProvider = ({ children }) => {
                 addFeedback,
                 editFeedback,
                 feedbackEdit,
-                updateFeedback
+                updateFeedback,
+                isLoading
             }}
         >
             {children}
@@ -73,3 +74,4 @@ export const FeedbackProvider = ({ children }) => {
 }
 
 export default FeedbackContext
+// once we have istalled json-server we need to add script to the json dependenci

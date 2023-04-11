@@ -1,24 +1,9 @@
 {
   "feedback": [
     {
-      "id": 1,
-      "text": "This is text 1 from backend",
-      "rating": 10
-    },
-    {
-      "id": 2,
-      "text": "This is text 2 from backend",
-      "rating": 9
-    },
-    {
-      "id": 3,
-      "text": "This is text 3 from backend",
-      "rating": 8
-    },
-    {
-      "text": "This is made from postman",
-      "rating": "2",
-      "id": 5
+      "text": "This is a new text I want to Addd and iupdated it",
+      "rating": 7,
+      "id": 1
     }
   ]
 }

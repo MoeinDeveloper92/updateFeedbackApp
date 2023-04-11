@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid'
 import { createContext, useState, useEffect } from "react";
 
 const FeedbackContext = createContext();
@@ -17,7 +16,7 @@ export const FeedbackProvider = ({ children }) => {
     }, [])
 
     const fetchFeedback = async () => {
-        const res = await fetch("http://localhost:3000/feedback?_sort=id&_order=desc")
+        const res = await fetch("/feedback?_sort=id&_order=desc")
         const data = await res.json()
         // we fetch data from our backend
         setFeedback(data)
@@ -27,17 +26,34 @@ export const FeedbackProvider = ({ children }) => {
     }
 
     // Delete function
-    const deleteFeedback = (id) => {
+    const deleteFeedback = async (id) => {
         if (window.confirm("Are you sure that You want to delete this Feedback???")) {
+            await fetch(`/feedback/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             setFeedback(feedback.filter((item) => (
                 item.id !== id
             )))
         }
     }
     // Add Feedback
-    const addFeedback = (newFeedback) => {
-        newFeedback.id = uuidv4();
-        setFeedback([newFeedback, ...feedback])
+    // since this is a promise we need to call asynx function 
+    // and await to receive an apropriate function
+    const addFeedback = async (newFeedback) => {
+        const res = await fetch(`/feedback`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newFeedback)
+        })
+        // we dont need to add id manually since the way json server works is like other backends
+        // it will create id automatically
+        const data = await res.json();
+        setFeedback([data, ...feedback])
     }
 
     //  Set item to be updated
@@ -51,8 +67,16 @@ export const FeedbackProvider = ({ children }) => {
 
 
     // Update Feedback Item
-    const updateFeedback = (id, updItem) => {
-        setFeedback(feedback.map((item) => item.id === id ? { ...item, ...updItem } : item))
+    const updateFeedback = async (id, updItem) => {
+        const res = await fetch(`/feedback/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updItem)
+        })
+        const data = await res.json()
+        setFeedback(feedback.map((item) => item.id === id ? { ...item, ...data } : item))
     }
 
 
@@ -75,3 +99,4 @@ export const FeedbackProvider = ({ children }) => {
 
 export default FeedbackContext
 // once we have istalled json-server we need to add script to the json dependenci
+// we can add procy in order to avoid typing whole the url in the fetch URL

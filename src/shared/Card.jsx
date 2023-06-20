@@ -1,22 +1,14 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 function Card({ children, reverse }) {
-
-    return (
-        <div className={`card ${reverse && 'reverse'}`}>
-            {children}
-        </div>
-    )
+  return <div className={`card ${reverse ? "reverse" : ""}`}>{children}</div>;
 }
 
 Card.propTypes = {
-    children: PropTypes.node.isRequired,
-    reverse: PropTypes.bool
-}
-
+  reverse: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+};
 Card.defaultProps = {
-    reverse: false
-}
-
-
-export default Card
+  reverse: false,
+};
+export default Card;

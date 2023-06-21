@@ -1,11 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import { motion } from "framer-motion";
 function Button({ children, version, type, isDisabled }) {
   return (
-    <button type={type} disabled={isDisabled} className={`btn btn-${version}`}>
+    <motion.button
+      whileHover={{ scale: 1.1 }}
+      transition={{ duration: 0.2 }}
+      type={type}
+      disabled={isDisabled}
+      className={`btn btn-${version}`}
+    >
       {children}
-    </button>
+    </motion.button>
   );
 }
 

@@ -10,6 +10,12 @@ const feedbackReducer = (state, action) => {
         ...state,
         feedback: [action.payload, ...state.feedback],
       };
+    case "EDIT_FEEDBACK":
+      return {
+        ...state,
+        item: action.payload,
+        edit: true,
+      };
     default:
       return state;
   }

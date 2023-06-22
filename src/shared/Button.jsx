@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 function Button({ children, version, type, isDisabled }) {
   return (
     <motion.button
-      whileHover={{ scale: 1.1 }}
+      whileHover={{ scale: 1.1, opacity: 0.8 }}
       transition={{ duration: 0.2 }}
       type={type}
       disabled={isDisabled}

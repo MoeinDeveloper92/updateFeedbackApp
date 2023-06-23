@@ -1,5 +1,5 @@
-import { useReducer, useCallback } from "react";
-import { createContext, useState } from "react";
+import { useReducer } from "react";
+import { createContext } from "react";
 import feedbackReducer from "../reducer/feedbackReducer";
 import { v4 as uuidv4 } from "uuid";
 const FeedbackContext = createContext();
@@ -8,51 +8,42 @@ const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({ children }) => {
   const initialState = {
-    feedback: [{ id: 1, text: "Feedback Item One from Context", rating: 10 }],
-    feedbackEdit: {
-      // we want to update this piecde of state when we click on it.
-      item: {},
-      edit: false,
-    },
+    feedback: [
+      { id: 1, text: "Feedback Item One from Context", rating: 10 },
+      { id: 2, text: "Feedback Item Two from Context", rating: 9 },
+      { id: 3, text: "Feedback Item three from Ciontext", rating: 8 },
+    ],
+    newItem: {},
+    edit: false,
   };
   const [state, dispatch] = useReducer(feedbackReducer, initialState);
 
   //   Delete Feedback
-  const deleteFeedback = useCallback(
-    (id) => {
-      if (
-        window.confirm("Are you sure that your want to delete the feedback?")
-      ) {
-        dispatch({ type: "DELETE_FEEDBACK", payload: id });
-      }
-    },
-    [dispatch]
-  );
+  const deleteFeedback = (id) => {
+    if (window.confirm("Are you sure that your want to delete the feedback?")) {
+      dispatch({ type: "DELETE_FEEDBACK", payload: id });
+    }
+  };
 
   //   Add Feedback
   //create addFeedback absed on its dependecies
 
-  const addFeedback = useCallback(
-    (newFeedback) => {
-      newFeedback.id = uuidv4();
-      dispatch({ type: "ADD_FEEDBACK", payload: newFeedback });
-    },
-    [dispatch]
-  );
+  const addFeedback = (newFeedback) => {
+    newFeedback.id = uuidv4();
+    dispatch({ type: "ADD_FEEDBACK", payload: newFeedback });
+  };
 
   // Set item to be updated
-  const editFeedback = useCallback(
-    (item) => {
-      dispatch({ type: "EDIT_FEEDBACK", payload: item });
-    },
-    [dispatch]
-  );
+  const editFeedback = (item) => {
+    dispatch({ type: "EDIT_FEEDBACK", payload: item });
+  };
 
   return (
     <FeedbackContext.Provider
       value={{
         feedback: state.feedback,
-        singleFeedback: state.singleFeedback,
+        newItem: state.newItem,
+        edit: state.edit,
         deleteFeedback,
         addFeedback,
         editFeedback,

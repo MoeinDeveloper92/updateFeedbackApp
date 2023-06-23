@@ -13,7 +13,7 @@ const feedbackReducer = (state, action) => {
     case "EDIT_FEEDBACK":
       return {
         ...state,
-        item: action.payload,
+        newItem: action.payload,
         edit: true,
       };
     default:

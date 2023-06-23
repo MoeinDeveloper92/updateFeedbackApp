@@ -5,11 +5,19 @@ import RatingSelect from "./RatingSelect";
 import FeedbackContext from "../context/FeedbackContext";
 
 function FeedbackForm() {
+  const { addFeedback, newItem, edit } = useContext(FeedbackContext);
   const [text, setText] = useState("");
   const [rating, setRating] = useState(1);
   const [btnDisbaled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState(null);
-  const { addFeedback, singleFeedback } = useContext(FeedbackContext);
+
+  useEffect(() => {
+    if (edit === true) {
+      setBtnDisabled(false);
+      setText(newItem.text);
+      setRating(newItem.rating);
+    }
+  }, [newItem, edit]);
 
   const handleText = (e) => {
     if (text === "") {

@@ -43,7 +43,7 @@ function FeedbackForm() {
         text,
         rating,
       };
-
+      //
       addFeedback(newFeedback);
       setText("");
     }

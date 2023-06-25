@@ -16,6 +16,16 @@ const feedbackReducer = (state, action) => {
         newItem: action.payload,
         edit: true,
       };
+    case "UPDATE_FEEDBACK":
+      return {
+        ...state,
+        feedback: state.feedback.map((item) => {
+          if (item.id === action.payload.id) {
+            return { ...item, ...action.payload.updItem };
+          }
+          return item;
+        }),
+      };
     default:
       return state;
   }
